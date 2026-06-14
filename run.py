@@ -11,12 +11,19 @@ st.set_page_config(
 CONTENT = {
     "en": {
         "title": "Streamlit Sample App",
-        "status": "✅ The application is running successfully.",
+        "status": "The application is running successfully.",
         "intro": (
-            "This is a minimal demo built with "
-            "[Streamlit](https://streamlit.io/). "
-            "It shows that your environment is set up correctly "
-            "and ready for further development."
+            "Welcome! This sample application demonstrates a working web app "
+            "built with [Streamlit](https://streamlit.io/). "
+            "Your environment is configured and ready to go. "
+            "Use the sidebar to switch between English and Japanese."
+        ),
+        "next_header": "What's next?",
+        "next_steps": (
+            "1. Edit `run.py` to customize this page\n"
+            "2. Add new pages under a `pages/` folder — Streamlit will pick "
+            "them up automatically\n"
+            "3. Check `README.md` for installation and configuration details"
         ),
         "run_header": "How to run",
         "run_cmd": "streamlit run run.py",
@@ -25,12 +32,20 @@ CONTENT = {
     },
     "ja": {
         "title": "Streamlit サンプルアプリ",
-        "status": "✅ アプリは正常に動作しています。",
+        "status": "アプリは正常に動作しています。",
         "intro": (
-            "これは [Streamlit](https://streamlit.io/) で構築した"
-            "最小限のデモアプリです。"
-            "環境が正しくセットアップされ、"
-            "開発を続けられる状態であることを示しています。"
+            "ようこそ！このサンプルアプリは "
+            "[Streamlit](https://streamlit.io/) で構築された、"
+            "動作確認済みの Web アプリです。"
+            "環境は正しく設定されています。"
+            "サイドバーから英語と日本語を切り替えることができます。"
+        ),
+        "next_header": "次のステップ",
+        "next_steps": (
+            "1. `run.py` を編集してページをカスタマイズ\n"
+            "2. `pages/` フォルダに新しいページを追加 — "
+            "Streamlit が自動的に認識します\n"
+            "3. インストールや設定の詳細は `README_ja.md` を参照"
         ),
         "run_header": "起動方法",
         "run_cmd": "streamlit run run.py",
@@ -51,6 +66,9 @@ t = CONTENT[lang]
 st.title(t["title"])
 st.success(t["status"])
 st.markdown(t["intro"])
+
+st.markdown(f"### {t['next_header']}")
+st.markdown(t["next_steps"])
 
 with st.expander(t["run_header"]):
     st.code(t["run_cmd"], language="bash")

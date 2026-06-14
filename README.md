@@ -38,7 +38,14 @@ streamlit run run.py
 After execution, access:
 [http://localhost:8501](http://localhost:8501)
 
-You should see a page titled **"Streamlit Sample App"** with a green success banner confirming that the application is running successfully. Use the sidebar to switch the page language between English and Japanese.
+You should see a page titled **"Streamlit Sample App"** with:
+
+* A green success banner confirming "The application is running successfully."
+* A "Welcome!" introduction describing the app's purpose
+* A "What's next?" section with steps for customization
+* A "How to run" expander with the launch command
+
+The page defaults to English. Use the sidebar to switch between English and Japanese.
 
 ---
 

@@ -1,0 +1,18 @@
+# Project-level Streamlit configuration
+# This file is automatically loaded when running `streamlit run` from this directory.
+# No changes to the global ~/.streamlit/config.toml are needed.
+#
+# For normal local development, the defaults are sufficient.
+# Uncomment and modify the sections below only for specific scenarios
+# (see the Troubleshooting section in README.md).
+
+# [server]
+# Uncomment the following if you need to bind to all network interfaces
+# (e.g., accessing from another machine on the same LAN):
+# address = "0.0.0.0"
+
+# Uncomment to use a custom port:
+# port = 8501
+
+# Uncomment to disable the browser auto-open on startup:
+# headless = true

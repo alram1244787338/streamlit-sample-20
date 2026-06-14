@@ -2,17 +2,24 @@
 # This file is automatically loaded when running `streamlit run` from this directory.
 # No changes to the global ~/.streamlit/config.toml are needed.
 #
-# For normal local development, the defaults are sufficient.
-# Uncomment and modify the sections below only for specific scenarios
-# (see the Troubleshooting section in README.md).
+# For normal local development, the defaults are sufficient — leave everything commented.
+# Uncomment a section ONLY when you hit a specific scenario described in the README.
 
 # [server]
-# Uncomment the following if you need to bind to all network interfaces
-# (e.g., accessing from another machine on the same LAN):
+
+# --- Scenario: Access from another device on the same LAN ---
+# By default Streamlit only listens on localhost. Uncomment to bind to all interfaces.
 # address = "0.0.0.0"
 
-# Uncomment to use a custom port:
+# --- Scenario: Port conflict ---
+# Uncomment to use a different port (or pass --server.port on the command line).
 # port = 8501
 
-# Uncomment to disable the browser auto-open on startup:
+# --- Scenario: Headless / remote server ---
+# Uncomment to suppress the auto-open-browser prompt (WSL, SSH, Docker, etc.).
 # headless = true
+
+# --- Scenario: Behind a reverse proxy or in a cloud environment ---
+# Uncomment ONLY if you see CORS errors in the browser console.
+# Local development on localhost should NEVER need this.
+# enableCORS = false

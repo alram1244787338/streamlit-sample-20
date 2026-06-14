@@ -50,55 +50,82 @@ streamlit run run.py
 
 ## ⚠️ 常见问题排查
 
-遇到问题时，请根据你的具体症状选择对应的解决方法。**只需尝试匹配的那一步，不需要全部都做。**
+> **大多数情况下，`streamlit run run.py` 直接就能跑，无需改任何配置。**
+> 本项目自带的 `.streamlit/config.toml` 中所有选项都是注释状态；Streamlit 内置默认值对本地开发完全够用。**不要去改全局的 `~/.streamlit/config.toml`。**
+>
+> 如果遇到问题，请对照下表定位你的情况，**只尝试对应的修复方案**。
 
-### 症状 1：提示 "Port 8501 is already in use"
+### 先做快速自检（改配置之前先看这里）
 
-端口 8501 已被其他程序占用。换一个端口启动：
+在修改任何配置之前，先缩小问题范围：
 
-```bash
-streamlit run run.py --server.port 8502
-```
+1. **Streamlit 本身能跑吗？** 试试 `streamlit hello` —— 如果内置 Demo 能跑，说明环境没问题，问题出在应用代码。
+2. **浏览器能访问这个地址吗？** 手动打开 [http://localhost:8501](http://localhost:8501)。如果能加载，说明应用在正常运行，你只是没自动弹出浏览器。
+3. **命令在启动时就报错了？** 看终端里的报错信息。最常见的是端口冲突，见下方。
 
-然后访问 [http://localhost:8502](http://localhost:8502)。
+### 场景 A：提示 "Port 8501 is already in use"
 
-### 症状 2：浏览器没有自动打开
+端口 8501 被其他程序占用了。两种修复方式，任选其一：
 
-在某些环境（如 WSL、远程服务器）下这是正常的。手动打开浏览器，访问 [http://localhost:8501](http://localhost:8501) 即可。
+* **命令行参数（最快，不用改文件）：**
 
-如果希望以后也不弹出自动打开的提示，可以在 `.streamlit/config.toml` 中取消注释 `headless = true`。
+  ```bash
+  streamlit run run.py --server.port 8502
+  ```
 
-### 症状 3：需要从同一局域网内的其他设备访问
+  然后访问 [http://localhost:8502](http://localhost:8502)。
 
-默认情况下，Streamlit 只监听 `localhost`。如需允许局域网内其他设备的连接，在 `.streamlit/config.toml` 中取消注释以下行：
+* **持久修改：** 在 `.streamlit/config.toml` 中取消注释 `port = 8501`，改成你想要的端口号。
+
+### 场景 B：应用在跑，但浏览器没弹出来
+
+在 WSL、SSH、Docker 或其他无界面环境下这是正常的。手动打开浏览器，访问 [http://localhost:8501](http://localhost:8501) 即可。
+
+如果希望以后也不弹浏览器，在 `.streamlit/config.toml` 中取消注释 `headless = true`。
+
+### 场景 C：需要从同一局域网的其他设备访问
+
+默认情况下，Streamlit 只绑定 `localhost`——其他机器无法连接。这是出于安全考虑的设计。
+
+如需允许局域网访问，在 `.streamlit/config.toml` 中取消注释以下行：
 
 ```toml
-[server]
 address = "0.0.0.0"
 ```
 
-然后使用本机的 IP 地址访问，例如 `http://<你的IP>:8501`。
+然后用本机的局域网 IP 访问，例如 `http://192.168.x.x:8501`。
 
-> **重要：** 仅在可信网络中使用此配置。不要将 Streamlit 直接暴露到公网。
+> **⚠️ 安全提示：** 这会把应用暴露给同一网络内的所有人。仅在可信网络中使用，绝对不要将 Streamlit 直接暴露到公网。
 
-### 症状 4：浏览器控制台出现 CORS 错误
+### 场景 D：浏览器控制台出现 CORS 错误
 
-通常在反向代理或某些云环境下会出现此问题。作为**最后手段**，可以在 `.streamlit/config.toml` 中取消注释以下行：
+这只会在反向代理（nginx、Caddy）或某些云托管环境下出现。正常的本地开发**不会**遇到。
+
+如果你确认属于这种情况，在 `.streamlit/config.toml` 中取消注释以下行：
 
 ```toml
-[server]
 enableCORS = false
 ```
 
-在本地 `localhost` 开发时，**不需要**修改此设置。
+> **本地 `localhost` 开发不需要改这个** —— 改了没有好处，反而会降低浏览器安全性。
 
-### 还是不行？
+### 速查：我该用哪个方案？
 
-试试以下快速检查：
+| 你看到的现象 | 场景 | 修复方式 |
+|---|---|---|
+| `Port 8501 is already in use` | A | 用 `--server.port` 参数 |
+| 终端显示 "running" 但没弹浏览器 | B | 手动打开 URL |
+| 从其他设备连接被拒绝 | C | 在 config.toml 中取消注释 `address` |
+| 浏览器开发者工具报 CORS 错误 | D | 在 config.toml 中取消注释 `enableCORS` |
+| 以上都不像 | — | 跑一下 `streamlit hello` 验证环境 |
 
-1. **Python 是否已安装？** 运行 `python --version`（应为 3.7+）。
-2. **Streamlit 是否已安装？** 运行 `streamlit --version`。
-3. **内置 Demo 能跑吗？** 运行 `streamlit hello` —— 如果能跑通，说明问题在应用代码，而非环境。
+### 还是不行？环境基础检查
+
+如果上面的都不匹配，验证一下基础环境：
+
+1. `python --version` —— 应该是 3.7 及以上。
+2. `streamlit --version` —— 应该能输出版本号。
+3. `streamlit hello` —— 如果内置 Demo 能跑，说明问题出在应用代码，不是环境问题。
 
 ---
 

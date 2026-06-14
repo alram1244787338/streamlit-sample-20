@@ -50,55 +50,82 @@ Your browser should open automatically. If it doesn't, navigate to:
 
 ## ⚠️ Troubleshooting
 
-If something doesn't work, find the symptom that matches your situation below. **Try only the step that matches — no need to do all of them.**
+> **In most cases, `streamlit run run.py` just works — no config changes needed.**
+> This project ships a `.streamlit/config.toml` with everything commented out; Streamlit's built-in defaults are correct for local development. **Do not modify your global `~/.streamlit/config.toml`.**
+>
+> If something goes wrong, use the table below to identify your situation and apply **only** the matching fix.
 
-### Symptom 1: "Port 8501 is already in use"
+### Quick self-check (do this first)
 
-Another process is using port 8501. Start on a different port:
+Before changing any configuration, narrow down the problem:
 
-```bash
-streamlit run run.py --server.port 8502
-```
+1. **Can Streamlit itself run?** Try `streamlit hello` — if the built-in demo works, your environment is fine and the issue is in the app code.
+2. **Can you reach the URL?** Open [http://localhost:8501](http://localhost:8501) in a browser. If it loads, the app is running — your problem is just browser auto-open.
+3. **Did the command fail at startup?** Read the terminal error. The most common one is a port conflict, covered below.
 
-Then access [http://localhost:8502](http://localhost:8502).
+### Situation A: "Port 8501 is already in use"
 
-### Symptom 2: Browser doesn't open automatically
+Another process is occupying port 8501. Two ways to fix it — pick one:
 
-This is normal in some environments (e.g., WSL, remote servers). Simply open your browser manually and go to [http://localhost:8501](http://localhost:8501).
+* **Command-line flag (quickest, no file edits):**
 
-If you want to suppress the auto-open prompt in the future, uncomment `headless = true` in `.streamlit/config.toml`.
+  ```bash
+  streamlit run run.py --server.port 8502
+  ```
 
-### Symptom 3: Need to access from another device on the same network
+  Then open [http://localhost:8502](http://localhost:8502).
 
-By default, Streamlit only listens on `localhost`. To allow connections from other devices on your LAN, uncomment the following line in `.streamlit/config.toml`:
+* **Persistent fix:** Uncomment `port = 8501` in `.streamlit/config.toml` and change the value.
+
+### Situation B: App is running, but the browser didn't open
+
+This is normal in WSL, SSH, Docker, or other headless environments. Just open your browser manually and go to [http://localhost:8501](http://localhost:8501).
+
+To suppress the auto-open prompt permanently, uncomment `headless = true` in `.streamlit/config.toml`.
+
+### Situation C: Need access from another device on the same network
+
+By default, Streamlit binds to `localhost` only — other machines cannot connect. This is intentional for security.
+
+To allow LAN access, uncomment this line in `.streamlit/config.toml`:
 
 ```toml
-[server]
 address = "0.0.0.0"
 ```
 
-Then access the app using your machine's IP address, e.g., `http://<your-ip>:8501`.
+Then use your machine's local IP, e.g., `http://192.168.x.x:8501`.
 
-> **Important:** Only do this on trusted networks. Do not expose Streamlit directly to the public internet.
+> **⚠️ Security note:** This exposes the app to anyone on the network. Only use on trusted networks; never expose Streamlit directly to the public internet.
 
-### Symptom 4: CORS errors in the browser console
+### Situation D: CORS errors in the browser console
 
-This usually happens when running behind a reverse proxy or in certain cloud environments. As a **last resort**, you can uncomment the following in `.streamlit/config.toml`:
+This only happens behind a reverse proxy (nginx, Caddy) or in certain cloud-hosted setups. It does **not** happen during normal local development.
+
+If you are sure this applies to you, uncomment the following in `.streamlit/config.toml`:
 
 ```toml
-[server]
 enableCORS = false
 ```
 
-For local development on `localhost`, you should **never** need to change this.
+> **Do not change this for local `localhost` development** — it has no benefit and weakens browser security.
 
-### Still not working?
+### Summary: which fix do I need?
 
-Try these quick checks:
+| What you see | Situation | Fix |
+|---|---|---|
+| `Port 8501 is already in use` | A | Use `--server.port` flag |
+| Terminal says "running" but no browser | B | Open URL manually |
+| Connection refused from another device | C | Uncomment `address` in config.toml |
+| CORS error in browser DevTools | D | Uncomment `enableCORS` in config.toml |
+| Something else entirely | — | Run `streamlit hello` to verify environment |
 
-1. **Is Python installed?** Run `python --version` (should be 3.7+).
-2. **Is Streamlit installed?** Run `streamlit --version`.
-3. **Can you run the built-in demo?** Run `streamlit hello` — if this works, the issue is in the app code, not your environment.
+### Still stuck? Environment sanity checks
+
+If none of the above match, verify your basics:
+
+1. `python --version` — should be 3.7 or later.
+2. `streamlit --version` — should print a version number.
+3. `streamlit hello` — if the built-in demo works, the problem is in the app code, not your setup.
 
 ---
 

@@ -1,12 +1,26 @@
 # Streamlit Simple Sample App
 
-This repository provides an example of a simple web application using the Python library Streamlit.
+*Read this in another language: [日本語 (README_ja.md)](README_ja.md)*
+
+This repository provides an example of a simple web application using the Python library Streamlit. This is a minimal working example of a Streamlit web app.
 
 ---
 
 ## ✅ Overview
 
 Streamlit is an open-source library that allows you to build data applications using only Python code.
+
+---
+
+## 👀 What you'll see when it runs
+
+When the app starts, the page shows:
+
+* the title **Streamlit Simple Sample App**,
+* a green banner confirming that Streamlit is running successfully,
+* a small text box that greets you by name.
+
+Everything on the page is sample/demo content — it is not a placeholder and not an error state. The app interface is in English; the documentation is available in English (this file) and Japanese ([README_ja.md](README_ja.md)).
 
 ---
 
@@ -19,7 +33,13 @@ Streamlit is an open-source library that allows you to build data applications u
 
 ## 📦 Installation
 
-You can install the required library using the following command:
+You can install the required libraries using the following command:
+
+```bash
+pip install -r requirements.txt
+```
+
+To install only Streamlit:
 
 ```bash
 pip install streamlit
@@ -37,6 +57,8 @@ streamlit run run.py
 
 After execution, access:
 [http://localhost:8501](http://localhost:8501)
+
+You should see the title, a green "running successfully" banner, and a greeting box — confirming the sample works.
 
 ---
 
@@ -76,10 +98,21 @@ streamlit run run.py
 
 ```
 .
-├── app.py             # Main Streamlit app file
-├── requirements.txt   # List of required libraries (optional)
-├── README_ja.md
-└── README.md          # This file
+├── run.py              # Main Streamlit app (entry point)
+├── requirements.txt    # Pinned dependencies
+├── test_consistency.py # Checks that the page text matches this README
+├── README.md           # This file (English)
+└── README_ja.md        # Japanese translation
+```
+
+---
+
+## 🔍 Verify the docs match the app
+
+A small, dependency-free check confirms that the page text in `run.py` stays consistent with this README:
+
+```bash
+python test_consistency.py
 ```
 
 ---
@@ -88,7 +121,7 @@ streamlit run run.py
 
 Streamlit is very useful for rapid prototyping and data visualization.
 It also supports creating more complex and customized applications.
-Please feel free to explore its capabilities.
+Feel free to use this repository as a starting template and build on top of it.
 
 ---
 

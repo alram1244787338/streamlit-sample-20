@@ -19,10 +19,10 @@ Streamlit は、Python コードだけでデータアプリケーションを作
 
 ## 📦 インストール方法
 
-以下のコマンドで必要なライブラリをインストールできます：
+`requirements.txt` に固定されたライブラリをインストールします：
 
 ```bash
-pip install streamlit
+pip install -r requirements.txt
 ```
 
 ---
@@ -70,10 +70,10 @@ streamlit run run.py
 
 ```
 .
-├── app.py            # Streamlit アプリの本体
-├── requirements.txt  # 使用ライブラリ一覧（任意）
-├── README_ja.md      # 本ファイル
-└── README.md      
+├── run.py            # Streamlit アプリ本体（エントリーポイント）
+├── requirements.txt  # 固定された依存ライブラリ一覧
+├── README.md         # 英語版
+└── README_ja.md      # 本ファイル（日本語版）
 ```
 
 ---

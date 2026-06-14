@@ -40,35 +40,54 @@ After execution, access:
 
 ---
 
-## ⚠️ If the App Doesn't Work Properly
+## ⚠️ Troubleshooting
 
-Run the following command:
+For a normal local setup, `streamlit run run.py` works **without any extra configuration** — you should not need to edit a config file. If something goes wrong, find your symptom below. Each fix is a one-off command-line flag, so your global Streamlit settings stay untouched.
+
+### Port 8501 is already in use
+
+Symptom: an error such as `Port 8501 is already in use`, or `localhost:8501` shows a different app.
+
+Fix — choose another port for this run only:
 
 ```bash
-streamlit config show > ~/.streamlit/config.toml
+streamlit run run.py --server.port 8502
 ```
 
-Open `~/.streamlit/config.toml` in your preferred editor (e.g., nano):
+Then open [http://localhost:8502](http://localhost:8502).
+
+### The browser doesn't open automatically
+
+When it starts, Streamlit prints the local URL in the terminal, for example:
+
+```
+Local URL: http://localhost:8501
+```
+
+Just open that URL in your browser manually — nothing needs to be configured.
+(On a remote server where you never want a browser to launch, add `--server.headless true`.)
+
+### You need to reach the app from another device
+
+By default the app is reachable only from your own machine (`localhost`), which is the safest setting for a sample. Only if you explicitly need access from another device on the **same trusted network**, bind to all interfaces for this run:
 
 ```bash
-nano ~/.streamlit/config.toml
+streamlit run run.py --server.address 0.0.0.0
 ```
 
-Add or modify the following settings:
+Then open `http://<this-machine-ip>:8501` from the other device.
+Note: this exposes the app to your local network, so only do it on a trusted network and check your firewall.
+
+### Still stuck? (advanced)
+
+If you genuinely need to persist a setting, keep your global environment clean by using a **project-local** config instead of `~/.streamlit/config.toml`. Create `.streamlit/config.toml` inside this project folder:
 
 ```toml
 [server]
-headless = true
-enableCORS = false
 port = 8501
-address = "0.0.0.0"
 ```
 
-Then run again:
-
-```bash
-streamlit run run.py
-```
+Streamlit picks it up automatically when you run from the project directory. Avoid editing `~/.streamlit/config.toml` unless you intend to change Streamlit's behavior for *every* project on your machine.
 
 ---
 
@@ -76,10 +95,10 @@ streamlit run run.py
 
 ```
 .
-├── app.py             # Main Streamlit app file
-├── requirements.txt   # List of required libraries (optional)
-├── README_ja.md
-└── README.md          # This file
+├── run.py             # Main Streamlit app file (the one you run)
+├── requirements.txt   # Pinned list of required libraries
+├── README_ja.md       # Japanese README
+└── README.md          # This file (English)
 ```
 
 ---

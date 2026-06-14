@@ -43,37 +43,63 @@ http://localhost:8501
 
 ## ⚠️ うまく動かない場合
 
-以下のコマンドを実行して
+通常のローカル環境では、`streamlit run run.py` だけで動作し、**設定ファイルを編集する必要はありません**。うまくいかない場合は、以下から当てはまる症状を探してください。どの対処もその場限りのコマンドラインオプションなので、グローバルな Streamlit 設定はそのまま保たれます。
+
+### ポート 8501 がすでに使われている
+
+症状: `Port 8501 is already in use` のようなエラーが出る、または `localhost:8501` に別のアプリが表示される。
+
+対処 — この実行に限って別のポートを指定します:
+
 ```bash
-streamlit config show > ~/.streamlit/config.toml
+streamlit run run.py --server.port 8502
 ```
 
-お好きなエディタ(ここではnano)で~/.streamlit/config.tomlを開いて
-以下の部分を修正、もしくは追加
-```bash
-nano ~/.streamlit/config.toml
+その後 [http://localhost:8502](http://localhost:8502) を開いてください。
+
+### ブラウザが自動で開かない
+
+Streamlit は起動時に、ローカル URL をターミナルに表示します。例:
+
 ```
-```~/.streamlit/config.toml
+Local URL: http://localhost:8501
+```
+
+その URL をブラウザで手動で開いてください。設定は不要です。
+（リモートサーバーなどでブラウザを開かせたくない場合は、`--server.headless true` を付けます。）
+
+### 別の端末からアクセスしたい
+
+既定ではアプリは自分のマシン（`localhost`）からのみアクセスでき、これはサンプルとして最も安全な設定です。**同じ信頼できるネットワーク上**の別の端末からアクセスする必要がある場合のみ、この実行に限ってすべてのインターフェースにバインドします:
+
+```bash
+streamlit run run.py --server.address 0.0.0.0
+```
+
+その後、別の端末から `http://<このマシンのIP>:8501` を開いてください。
+注意: これによりアプリがローカルネットワークに公開されます。信頼できるネットワークでのみ行い、ファイアウォールの設定も確認してください。
+
+### それでも解決しない場合（応用）
+
+設定を恒久的に残したい場合は、`~/.streamlit/config.toml` ではなく**プロジェクト内**の設定を使い、グローバル環境を汚さないようにします。このプロジェクトフォルダ内に `.streamlit/config.toml` を作成します:
+
+```toml
 [server]
-headless = true
-enableCORS = false
 port = 8501
-address = "0.0.0.0"
 ```
-再実行
-```bash
-streamlit run run.py
-```
+
+プロジェクトディレクトリから実行すると、Streamlit が自動的に読み込みます。マシン上の*すべて*のプロジェクトで挙動を変えたい場合を除き、`~/.streamlit/config.toml` の編集は避けてください。
+
 ---
 
 ## 📁 ファイル構成
 
 ```
 .
-├── app.py            # Streamlit アプリの本体
-├── requirements.txt  # 使用ライブラリ一覧（任意）
-├── README_ja.md      # 本ファイル
-└── README.md      
+├── run.py            # Streamlit アプリの本体（実行するファイル）
+├── requirements.txt  # 使用ライブラリ一覧（バージョン固定）
+├── README_ja.md      # 本ファイル（日本語）
+└── README.md         # 英語版 README
 ```
 
 ---

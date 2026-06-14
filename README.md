@@ -19,11 +19,16 @@ Streamlit is an open-source library that allows you to build data applications u
 
 ## 📦 Installation
 
-You can install the required library using the following command:
+Install the required libraries using the following command:
 
 ```bash
-pip install streamlit
+pip install -r requirements.txt
 ```
+
+> **Tip:** If you only need Streamlit itself and don't care about pinned dependency versions, you can also run:
+> ```bash
+> pip install streamlit
+> ```
 
 ---
 
@@ -76,9 +81,10 @@ streamlit run run.py
 
 ```
 .
-├── app.py             # Main Streamlit app file
-├── requirements.txt   # List of required libraries (optional)
-├── README_ja.md
+├── .gitignore         # Git ignore rules
+├── run.py             # Main Streamlit app file
+├── requirements.txt   # List of required libraries (with pinned versions)
+├── README_ja.md       # Japanese README
 └── README.md          # This file
 ```
 

@@ -1,4 +1,4 @@
 import streamlit as st
 
-st.title("Hello Streamlit")
+st.title("Streamlit Simple Sample App")
 st.write("動作確認中")

@@ -1,18 +1,37 @@
-# 仮想環境ディレクトリを無視（名前が venv の場合）
-venv/
-
-# tempは無視
-temp/
-
-# 他の一般的な Python 開発用無視リスト（推奨）
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.sqlite3
-*.log
-*.db
+*.py[cod]
+*$py.class
+*.so
 *.egg-info/
-.env
+*.egg
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+*.whl
+
+# Go
+vendor/
+go.sum
+
+# Node / npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db

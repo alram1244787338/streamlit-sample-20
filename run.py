@@ -1,4 +1,4 @@
 import streamlit as st
 
 st.title("Streamlit Simple Sample App")
-st.write("動作確認中")
+st.write("Hello! The app is running correctly.")

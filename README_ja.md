@@ -12,7 +12,7 @@ Streamlit は、Python コードだけでデータアプリケーションを作
 
 ## 🧰 必要な環境
 
-* Python 3.7 以上
+* Python 3.9 以上
 * pip
 
 ---
@@ -25,7 +25,7 @@ Streamlit は、Python コードだけでデータアプリケーションを作
 pip install -r requirements.txt
 ```
 
-> **ヒント:** Streamlit 本体だけでよい場合は、以下でも可能です：
+> **ヒント:** requirements.txt を使わずに直接インストールすることも可能です：
 > ```bash
 > pip install streamlit
 > ```
@@ -77,7 +77,7 @@ streamlit run run.py
 .
 ├── .gitignore          # Git 無視ルール
 ├── run.py              # Streamlit アプリの本体
-├── requirements.txt    # 使用ライブラリ一覧（バージョン固定）
+├── requirements.txt    # 必要な Python パッケージ
 ├── README_ja.md        # 本ファイル
 └── README.md
 ```

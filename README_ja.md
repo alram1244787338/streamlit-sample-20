@@ -12,7 +12,7 @@ Streamlit は、Python コードだけでデータアプリケーションを作
 
 ## 🧰 必要な環境
 
-* Python 3.7 以上
+* Python 3.10 以上（固定された依存ライブラリ、例: `numpy==2.2.6` が必要とするため）
 * pip
 
 ---
@@ -43,20 +43,23 @@ http://localhost:8501
 
 ## ⚠️ うまく動かない場合
 
-以下のコマンドを実行して
+上記の 2 つのコマンドだけでローカル実行は可能です。以下の手順は**任意**で、
+カスタムのホスト/ポートで公開したい場合（例: リモートサーバー）のみ必要です。
+
+デフォルトの設定ファイルを生成します（新しい環境でもリダイレクトが失敗しない
+よう、先にディレクトリを作成します）：
+
 ```bash
+mkdir -p ~/.streamlit
 streamlit config show > ~/.streamlit/config.toml
 ```
 
-お好きなエディタ(ここではnano)で~/.streamlit/config.tomlを開いて
-以下の部分を修正、もしくは追加
-```bash
-nano ~/.streamlit/config.toml
-```
-```~/.streamlit/config.toml
+お好きなエディタ（ここでは nano）で `~/.streamlit/config.toml` を開き、
+サーバー設定を修正します：
+
+```toml
 [server]
 headless = true
-enableCORS = false
 port = 8501
 address = "0.0.0.0"
 ```

@@ -12,7 +12,7 @@ Streamlit is an open-source library that allows you to build data applications u
 
 ## 🧰 Requirements
 
-* Python 3.7 or later
+* Python 3.10 or later (required by the pinned dependencies, e.g. `numpy==2.2.6`)
 * pip
 
 ---
@@ -42,24 +42,24 @@ After execution, access:
 
 ## ⚠️ If the App Doesn't Work Properly
 
-Run the following command:
+The two commands above are enough to run the app locally. The steps below are
+**optional** — use them only if you want to serve the app on a custom host/port
+(for example, on a remote machine).
+
+Generate a default config file (create the directory first so the redirect
+succeeds on a fresh machine):
 
 ```bash
+mkdir -p ~/.streamlit
 streamlit config show > ~/.streamlit/config.toml
 ```
 
-Open `~/.streamlit/config.toml` in your preferred editor (e.g., nano):
-
-```bash
-nano ~/.streamlit/config.toml
-```
-
-Add or modify the following settings:
+Open `~/.streamlit/config.toml` in your preferred editor (e.g., nano) and adjust
+the server settings:
 
 ```toml
 [server]
 headless = true
-enableCORS = false
 port = 8501
 address = "0.0.0.0"
 ```

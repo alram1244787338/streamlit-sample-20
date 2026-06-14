@@ -98,6 +98,7 @@ port = 8501
 .
 ├── run.py            # Streamlit アプリの本体（実行するファイル）
 ├── requirements.txt  # 使用ライブラリ一覧（バージョン固定）
+├── README_zh.md      # 中国語版 README
 ├── README_ja.md      # 本ファイル（日本語）
 └── README.md         # 英語版 README
 ```

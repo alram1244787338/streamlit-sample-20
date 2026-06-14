@@ -97,6 +97,7 @@ Streamlit picks it up automatically when you run from the project directory. Avo
 .
 ├── run.py             # Main Streamlit app file (the one you run)
 ├── requirements.txt   # Pinned list of required libraries
+├── README_zh.md       # Chinese README
 ├── README_ja.md       # Japanese README
 └── README.md          # This file (English)
 ```

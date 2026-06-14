@@ -39,6 +39,8 @@ streamlit run run.py
 http://localhost:8501
 にアクセスしてください
 
+**「Streamlit サンプルアプリ」** というタイトルのページが表示され、アプリが正常に動作していることを示す緑色のバナーが表示されます。サイドバーから英語と日本語を切り替えることができます。
+
 ---
 
 ## ⚠️ うまく動かない場合
@@ -70,10 +72,12 @@ streamlit run run.py
 
 ```
 .
-├── app.py            # Streamlit アプリの本体
-├── requirements.txt  # 使用ライブラリ一覧（任意）
-├── README_ja.md      # 本ファイル
-└── README.md      
+├── run.py                 # Streamlit アプリの本体
+├── requirements.txt       # 使用ライブラリ一覧
+├── check_consistency.py   # ページ文案とREADMEの整合性チェック
+├── README_ja.md           # 本ファイル
+├── README.md              # 英語版README
+└── .gitignore             # Git除外設定
 ```
 
 ---

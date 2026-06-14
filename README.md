@@ -38,6 +38,8 @@ streamlit run run.py
 After execution, access:
 [http://localhost:8501](http://localhost:8501)
 
+You should see a page titled **"Streamlit Sample App"** with a green success banner confirming that the application is running successfully. Use the sidebar to switch the page language between English and Japanese.
+
 ---
 
 ## ⚠️ If the App Doesn't Work Properly
@@ -76,10 +78,12 @@ streamlit run run.py
 
 ```
 .
-├── app.py             # Main Streamlit app file
-├── requirements.txt   # List of required libraries (optional)
-├── README_ja.md
-└── README.md          # This file
+├── run.py                 # Main Streamlit app file
+├── requirements.txt       # List of required libraries
+├── check_consistency.py   # Verifies page text matches README
+├── README_ja.md           # Japanese README
+├── README.md              # This file
+└── .gitignore             # Git ignore rules
 ```
 
 ---
